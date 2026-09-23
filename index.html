@@ -4,28 +4,484 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Site Surfer</title>
-
-<link rel="stylesheet" href="css/styles.css">
-<script src="js/app.js" defer></script>
+<style>
+:root, [data-theme="light"]{
+  --bg:#eef1f4;
+  --bg-grad-a:#e8edf1;
+  --bg-grad-b:#e6ebe8;
+  --surface:#fff;
+  --surface-2:#f7f9fa;
+  --surface-3:#f4f7f8;
+  --ink:#152028;
+  --muted:#5a6a76;
+  --line:#d5dde4;
+  --accent:#0d6b5c;
+  --accent2:#1a4f7a;
+  --ok:#1b7a45;
+  --warn:#9a6b12;
+  --err:#a33b3b;
+  --soft:#e7f3ef;
+  --soft2:#e8eef5;
+  --chip-warn-bg:#f5ead2;
+  --chip-err-bg:#f6e4e4;
+  --chip-ok-bg:#e3f0e8;
+  --danger-bg:#f6e4e4;
+  --danger-border:#e2bdbd;
+  --shadow:0 8px 28px rgba(21,32,40,.07);
+  --shadow-soft:0 2px 8px rgba(21,32,40,.06);
+  --radius:12px;
+  --font:system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,Menlo,Consolas,monospace;
+  --side-bg:#132028;
+  --side-ink:#d9e2e8;
+  --side-muted:#8aa0ad;
+  --side-line:#2a3a44;
+  --side-hover:#1e323d;
+  --side-brand:#fff;
+  --browser-bg:#0f1a20;
+  --browser-chrome:#1a2a33;
+  --browser-line:#2a3a44;
+  --browser-ink:#dce6ec;
+  --browser-muted:#b8c9d2;
+  --browser-tab:#243640;
+  --browser-body-a:#f4f7f5;
+  --browser-body-b:#e8eeec;
+  --log-bg:#0f1a20;
+  --log-ink:#b8d4c8;
+  --log-line:#1e2e36;
+  --toast-bg:#132028;
+  --toast-ink:#fff;
+  --ads-bg:#f3f6f2;
+  --ads-border:#9aab9f;
+  --progress-track:#e2e8ec;
+  --focus-ring:0 0 0 3px rgba(13,107,92,.28);
+  --tooltip-bg:#132028;
+  --tooltip-ink:#f2f6f8;
+  --hover-lift:brightness(1.03);
+  --btn-hover:#eef2f5;
+  --code-bg:#f4f7f8;
+  --input-bg:#fff;
+  --chart-a:#2a9a7e;
+  --chart-b:#0d6b5c;
+}
+[data-theme="dark"]{
+  --bg:#0f161c;
+  --bg-grad-a:#0c1217;
+  --bg-grad-b:#101a1f;
+  --surface:#172229;
+  --surface-2:#1b2830;
+  --surface-3:#1e2c35;
+  --ink:#e8eef2;
+  --muted:#9aadb8;
+  --line:#2c3c46;
+  --accent:#2a9a7e;
+  --accent2:#6ba3d4;
+  --ok:#3dba6e;
+  --warn:#d4a84b;
+  --err:#e07070;
+  --soft:#1a322c;
+  --soft2:#1a2a38;
+  --chip-warn-bg:#3a3018;
+  --chip-err-bg:#3a2222;
+  --chip-ok-bg:#1a3228;
+  --danger-bg:#3a2222;
+  --danger-border:#5c3434;
+  --shadow:0 8px 28px rgba(0,0,0,.35);
+  --shadow-soft:0 2px 8px rgba(0,0,0,.25);
+  --side-bg:#0a1218;
+  --side-ink:#d9e2e8;
+  --side-muted:#8aa0ad;
+  --side-line:#243440;
+  --side-hover:#1a2c36;
+  --side-brand:#fff;
+  --browser-bg:#0a1218;
+  --browser-chrome:#15242c;
+  --browser-line:#2a3a44;
+  --browser-ink:#dce6ec;
+  --browser-muted:#b8c9d2;
+  --browser-tab:#1e303a;
+  --browser-body-a:#141e24;
+  --browser-body-b:#10181e;
+  --log-bg:#0a1218;
+  --log-ink:#b8d4c8;
+  --log-line:#1e2e36;
+  --toast-bg:#0a1218;
+  --toast-ink:#e8eef2;
+  --ads-bg:#1a2820;
+  --ads-border:#3a4a40;
+  --progress-track:#2a3840;
+  --focus-ring:0 0 0 3px rgba(42,154,126,.35);
+  --tooltip-bg:#e8eef2;
+  --tooltip-ink:#132028;
+  --btn-hover:#243440;
+  --code-bg:#1a262e;
+  --input-bg:#121c22;
+  --chart-a:#2a9a7e;
+  --chart-b:#1a7a62;
+}
+[data-theme="ocean"]{
+  --bg:#e8eef6;
+  --bg-grad-a:#e3ebf5;
+  --bg-grad-b:#e6eef2;
+  --surface:#f7fafc;
+  --surface-2:#eef4fa;
+  --surface-3:#e9f0f7;
+  --ink:#122033;
+  --muted:#5a6f86;
+  --line:#c9d7e6;
+  --accent:#1a6f9a;
+  --accent2:#255a8f;
+  --ok:#1b7a55;
+  --warn:#9a6b12;
+  --err:#a33b3b;
+  --soft:#dcecf5;
+  --soft2:#dde8f4;
+  --chip-warn-bg:#f5ead2;
+  --chip-err-bg:#f6e4e4;
+  --chip-ok-bg:#dcefe6;
+  --danger-bg:#f6e4e4;
+  --danger-border:#e2bdbd;
+  --shadow:0 8px 28px rgba(18,32,51,.08);
+  --shadow-soft:0 2px 8px rgba(18,32,51,.06);
+  --side-bg:#0f2438;
+  --side-ink:#d7e4ef;
+  --side-muted:#84a0b6;
+  --side-line:#2a4258;
+  --side-hover:#1a3650;
+  --side-brand:#fff;
+  --browser-bg:#0d1e2e;
+  --browser-chrome:#163048;
+  --browser-line:#2a4258;
+  --browser-ink:#dce6ec;
+  --browser-muted:#b0c6d6;
+  --browser-tab:#1e3a52;
+  --browser-body-a:#f0f5f9;
+  --browser-body-b:#e4ecf3;
+  --log-bg:#0d1e2e;
+  --log-ink:#a8cde0;
+  --log-line:#1a3044;
+  --toast-bg:#0f2438;
+  --toast-ink:#fff;
+  --ads-bg:#e8f0f6;
+  --ads-border:#8aa3b8;
+  --progress-track:#d3deea;
+  --focus-ring:0 0 0 3px rgba(26,111,154,.28);
+  --tooltip-bg:#0f2438;
+  --tooltip-ink:#f2f6f8;
+  --btn-hover:#e6eef6;
+  --code-bg:#e9f0f7;
+  --input-bg:#fff;
+  --chart-a:#2a8fba;
+  --chart-b:#1a6f9a;
+}
+[data-theme="slate"]{
+  --bg:#eceef1;
+  --bg-grad-a:#e8eaee;
+  --bg-grad-b:#e9ebe8;
+  --surface:#fafbfc;
+  --surface-2:#f2f4f6;
+  --surface-3:#eef1f4;
+  --ink:#1a1f26;
+  --muted:#5c6770;
+  --line:#d0d6dc;
+  --accent:#3d4f5f;
+  --accent2:#2f4d6e;
+  --ok:#2d6b48;
+  --warn:#8a6a1a;
+  --err:#9a4040;
+  --soft:#e6eaee;
+  --soft2:#e5eaf0;
+  --chip-warn-bg:#f3ead6;
+  --chip-err-bg:#f4e6e6;
+  --chip-ok-bg:#e2ede6;
+  --danger-bg:#f4e6e6;
+  --danger-border:#ddbdbd;
+  --shadow:0 8px 28px rgba(26,31,38,.07);
+  --shadow-soft:0 2px 8px rgba(26,31,38,.05);
+  --side-bg:#1a222b;
+  --side-ink:#dce2e8;
+  --side-muted:#8b98a4;
+  --side-line:#303a46;
+  --side-hover:#28323e;
+  --side-brand:#fff;
+  --browser-bg:#141b22;
+  --browser-chrome:#222b35;
+  --browser-line:#303a46;
+  --browser-ink:#dce2e8;
+  --browser-muted:#b4c0ca;
+  --browser-tab:#2a3440;
+  --browser-body-a:#f2f4f6;
+  --browser-body-b:#e8ebef;
+  --log-bg:#141b22;
+  --log-ink:#b8c4c0;
+  --log-line:#263038;
+  --toast-bg:#1a222b;
+  --toast-ink:#fff;
+  --ads-bg:#eef0f2;
+  --ads-border:#9aa3ab;
+  --progress-track:#dce1e6;
+  --focus-ring:0 0 0 3px rgba(61,79,95,.28);
+  --tooltip-bg:#1a222b;
+  --tooltip-ink:#f2f4f6;
+  --btn-hover:#e8ecf0;
+  --code-bg:#eef1f4;
+  --input-bg:#fff;
+  --chart-a:#5a6e80;
+  --chart-b:#3d4f5f;
+}
+[data-theme="sand"]{
+  --bg:#f3efe8;
+  --bg-grad-a:#f0ebe3;
+  --bg-grad-b:#efeae4;
+  --surface:#fffcf8;
+  --surface-2:#f7f2eb;
+  --surface-3:#f4efe8;
+  --ink:#2a2218;
+  --muted:#6d6256;
+  --line:#ddd2c4;
+  --accent:#8a5a2b;
+  --accent2:#6b4a2e;
+  --ok:#3d6b3a;
+  --warn:#9a6b12;
+  --err:#a34535;
+  --soft:#f0e6d8;
+  --soft2:#ebe4da;
+  --chip-warn-bg:#f5ead2;
+  --chip-err-bg:#f6e4e0;
+  --chip-ok-bg:#e4efe2;
+  --danger-bg:#f6e4e0;
+  --danger-border:#e0c0b6;
+  --shadow:0 8px 28px rgba(42,34,24,.07);
+  --shadow-soft:0 2px 8px rgba(42,34,24,.05);
+  --side-bg:#2a241c;
+  --side-ink:#ebe4da;
+  --side-muted:#a89880;
+  --side-line:#40382c;
+  --side-hover:#3a3228;
+  --side-brand:#fff;
+  --browser-bg:#221e18;
+  --browser-chrome:#322c24;
+  --browser-line:#40382c;
+  --browser-ink:#ebe4da;
+  --browser-muted:#c4b8a4;
+  --browser-tab:#3c342a;
+  --browser-body-a:#f7f2eb;
+  --browser-body-b:#efe8de;
+  --log-bg:#221e18;
+  --log-ink:#d4c4a8;
+  --log-line:#3a3228;
+  --toast-bg:#2a241c;
+  --toast-ink:#fff;
+  --ads-bg:#f0eae2;
+  --ads-border:#b0a090;
+  --progress-track:#e4d9cc;
+  --focus-ring:0 0 0 3px rgba(138,90,43,.28);
+  --tooltip-bg:#2a241c;
+  --tooltip-ink:#f7f2eb;
+  --btn-hover:#f0eae2;
+  --code-bg:#f4efe8;
+  --input-bg:#fffcf8;
+  --chart-a:#b07840;
+  --chart-b:#8a5a2b;
+}
+*{box-sizing:border-box}
+html{color-scheme:light;scroll-behavior:smooth}
+[data-theme="dark"]{color-scheme:dark}
+[data-theme="ocean"],[data-theme="slate"],[data-theme="sand"]{color-scheme:light}
+body{margin:0;font-family:var(--font);color:var(--ink);background:linear-gradient(165deg,var(--bg-grad-a) 0%,var(--bg) 40%,var(--bg-grad-b) 100%);background-attachment:fixed;min-height:100vh;line-height:1.5;transition:background .25s ease,color .2s ease;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration-thickness:1px;text-underline-offset:2px}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+.side{background:var(--side-bg);color:var(--side-ink);padding:18px 12px;display:flex;flex-direction:column;gap:3px;position:sticky;top:0;height:100vh;overflow-y:auto;border-right:1px solid color-mix(in srgb,var(--side-line) 80%,transparent)}
+.brand{padding:10px 12px 18px;border-bottom:1px solid var(--side-line);margin-bottom:12px}
+.brand .hub{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--side-muted);font-weight:700}
+.brand h1{margin:6px 0 0;font-size:1.22rem;color:var(--side-brand);letter-spacing:-.025em;font-weight:750}
+.brand p{margin:6px 0 0;font-size:.75rem;color:var(--side-muted);line-height:1.4}
+.side-meta{margin-top:auto;padding:14px 10px 6px;border-top:1px solid var(--side-line);display:flex;flex-direction:column;gap:12px}
+.build-wrap{position:relative;display:inline-flex;align-items:center}
+.build-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.02em;color:var(--side-ink);background:rgba(255,255,255,.06);border:1px solid var(--side-line);padding:6px 11px;border-radius:8px;cursor:default;transition:background .15s ease,border-color .15s ease,color .15s ease,transform .15s ease}
+.build-badge:hover,.build-badge:focus-visible{background:var(--side-hover);border-color:#3d5360;color:#fff;outline:none}
+.build-badge .build-label{font-family:var(--font);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--side-muted)}
+.build-badge:hover .build-label,.build-badge:focus-visible .build-label{color:#b8c9d2}
+.build-tip{position:absolute;left:0;bottom:calc(100% + 8px);z-index:40;min-width:190px;padding:9px 11px;border-radius:8px;background:var(--tooltip-bg);color:var(--tooltip-ink);font-size:.72rem;line-height:1.35;box-shadow:var(--shadow);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .15s ease,transform .15s ease;white-space:nowrap}
+.build-tip::after{content:"";position:absolute;left:14px;top:100%;border:6px solid transparent;border-top-color:var(--tooltip-bg)}
+.build-tip strong{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;opacity:.75;font-weight:700;margin-bottom:2px}
+.build-wrap:hover .build-tip,.build-badge:focus-visible + .build-tip,.build-wrap:focus-within .build-tip{opacity:1;transform:translateY(0)}
+.theme-toggle{display:flex;width:100%;flex-wrap:wrap;border:1px solid var(--side-line);border-radius:10px;overflow:hidden;background:rgba(0,0,0,.18)}
+.theme-toggle button{flex:1 1 33%;min-width:0;border:0;background:transparent;color:var(--side-muted);padding:8px 6px;font-size:.65rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;transition:background .15s ease,color .15s ease}
+.theme-toggle button:hover{color:#fff;background:rgba(255,255,255,.06)}
+.theme-toggle button.active{background:var(--side-hover);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.theme-toggle button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.nav-btn{display:block;width:100%;text-align:left;background:transparent;border:0;color:#c5d2da;padding:10px 12px;border-radius:9px;font-size:.9rem;font-weight:500;transition:background .15s ease,color .15s ease,transform .12s ease;text-decoration:none;cursor:pointer;letter-spacing:-.01em}
+.nav-btn:hover{background:var(--side-hover);color:#fff}
+.nav-btn.active{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 35%,var(--side-hover)),var(--side-hover));color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+.nav-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.main{padding:18px 20px 48px;min-width:0;max-width:1400px}
+.topbar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:16px;padding-bottom:4px}
+.topbar h2{margin:0;font-size:1.35rem;letter-spacing:-.03em;font-weight:750}.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.045em;padding:4px 9px;border-radius:999px;background:var(--soft);color:var(--accent);border:1px solid transparent}
+.chip.warn{background:var(--chip-warn-bg);color:var(--warn)}.chip.err{background:var(--chip-err-bg);color:var(--err)}.chip.ok{background:var(--chip-ok-bg);color:var(--ok)}.chip.blue{background:var(--soft2);color:var(--accent2)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:14px;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}
+.panel h3{margin:0 0 12px;font-size:1.02rem;letter-spacing:-.015em;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:700}
+.panel-sub{margin:-2px 0 14px;font-size:.86rem;color:var(--muted);line-height:1.45}
+.grid2{display:grid;gap:14px;grid-template-columns:1fr}.grid3{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+@media(min-width:960px){.grid2{grid-template-columns:1.4fr 1fr}.work-grid{grid-template-columns:1fr 340px}}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;box-shadow:var(--shadow-soft);transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease;position:relative;overflow:hidden}
+.metric::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--chart-a));opacity:.9}
+.metric:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));box-shadow:var(--shadow);transform:translateY(-2px)}
+.metric b{display:block;font-size:1.48rem;letter-spacing:-.03em;line-height:1.15;font-weight:750}.metric span{font-size:.78rem;color:var(--muted)}
+.metric .delta{display:inline-block;margin-top:8px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:999px}
+.metric .delta.up{background:var(--chip-ok-bg);color:var(--ok)}.metric .delta.down{background:var(--chip-err-bg);color:var(--err)}.metric .delta.flat{background:var(--surface-3);color:var(--muted)}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:8px 13px;border-radius:9px;font-size:.85rem;font-weight:600;transition:background .15s ease,border-color .15s ease,filter .15s ease,color .15s ease,transform .12s ease,box-shadow .15s ease}
+.btn:hover{background:var(--btn-hover);transform:translateY(-1px)}.btn:active{transform:translateY(0)}.btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 35%,transparent)}.btn.primary:hover{filter:brightness(1.08)}
+.btn.danger{background:var(--danger-bg);border-color:var(--danger-border);color:var(--err)}.btn.danger:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.browser{border:1px solid var(--browser-line);border-radius:12px;overflow:hidden;background:var(--browser-bg);color:var(--browser-ink);box-shadow:var(--shadow)}
+.browser.fs{position:fixed;inset:0;z-index:80;border-radius:0}.browser.min .b-body,.browser.min .tabs{display:none}
+.b-chrome{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--browser-chrome);border-bottom:1px solid var(--browser-line);flex-wrap:wrap}
+.b-dots span{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:5px}
+.b-dots span:nth-child(1){background:#ff5f57}.b-dots span:nth-child(2){background:#febc2e}.b-dots span:nth-child(3){background:#28c840}
+.url-bar{flex:1;min-width:140px;background:var(--browser-bg);border:1px solid #334650;border-radius:8px;padding:7px 12px;color:var(--browser-muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.01em}
+.tabs{display:flex;gap:4px;padding:7px 9px 0;background:#15242c;overflow-x:auto}
+.tab{background:var(--browser-tab);border:1px solid #334650;color:#c5d4dc;padding:6px 12px;border-radius:8px 8px 0 0;font-size:.78rem;white-space:nowrap;transition:background .15s ease,color .15s ease;cursor:pointer}
+.tab:hover{color:#fff}.tab.active{background:var(--browser-bg);color:#fff;border-bottom-color:var(--browser-bg)}
+.b-body{min-height:300px;padding:20px;position:relative;background:linear-gradient(180deg,var(--browser-body-a),var(--browser-body-b));color:var(--ink)}
+.sim-page{max-width:560px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;box-shadow:var(--shadow);transition:box-shadow .2s ease}
+.sim-page h4{margin:0 0 10px;font-size:1.1rem;letter-spacing:-.02em}.sim-page p{margin:0 0 10px;color:var(--muted);font-size:.9rem}
+.cursor-sim{position:absolute;width:14px;height:14px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;transition:left .4s ease,top .4s ease;box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 25%,transparent);z-index:5}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.82rem}
+.status-grid div{background:var(--surface-3);border-radius:10px;padding:10px 11px;border:1px solid transparent;transition:border-color .15s ease,transform .12s ease}
+.status-grid div:hover{border-color:var(--line);transform:translateY(-1px)}
+.status-grid label{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:3px}
+.progress{height:8px;background:var(--progress-track);border-radius:99px;overflow:hidden;margin-top:8px}.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--chart-a));width:0%;transition:width .45s cubic-bezier(.2,.8,.2,1);border-radius:99px}
+.log{max-height:240px;overflow:auto;font-family:var(--mono);font-size:.75rem;background:var(--log-bg);color:var(--log-ink);border-radius:10px;padding:12px;line-height:1.45;border:1px solid var(--log-line)}
+.log div{padding:4px 0;border-bottom:1px solid var(--log-line);cursor:pointer;transition:color .12s ease}.log div:hover{color:#fff}
+.log div:last-child{border-bottom:0}
+table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}th{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;background:color-mix(in srgb,var(--surface-3) 70%,transparent)}
+tbody tr{transition:background .12s ease}tbody tr:hover{background:color-mix(in srgb,var(--soft2) 55%,transparent)}
+.plan ol{margin:0;padding-left:1.2rem}.plan li{margin:8px 0;line-height:1.4}
+textarea,input[type=text],input[type=number],input[type=url],input[type=password],input[type=search],select{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:var(--input-bg);color:var(--ink);transition:border-color .15s ease,box-shadow .15s ease}
+textarea:hover,input[type=text]:hover,input[type=number]:hover,input[type=url]:hover,input[type=password]:hover,input[type=search]:hover,select:hover{border-color:color-mix(in srgb,var(--muted) 40%,var(--line))}
+textarea:focus,input[type=text]:focus,input[type=number]:focus,input[type=url]:focus,input[type=password]:focus,input[type=search]:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:var(--focus-ring)}
+.field{display:flex;flex-direction:column;gap:6px;font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:12px}
+.check{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:500;color:var(--ink);margin:10px 0;cursor:pointer}
+.check input{width:auto;accent-color:var(--accent)}
+.muted{color:var(--muted);font-size:.85rem}
+.mt{margin-top:16px}
+.ads-slot{border:1px dashed var(--ads-border);background:var(--ads-bg);border-radius:10px;padding:14px;text-align:center;color:var(--muted);font-size:.8rem;min-height:90px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.ads-slot strong{color:var(--ink);font-size:.85rem}
+.hidden{display:none!important}.view{display:none;animation:fadeIn .28s ease}.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.toast{position:fixed;bottom:18px;right:18px;background:var(--toast-bg);color:var(--toast-ink);padding:12px 16px;border-radius:10px;font-size:.85rem;z-index:99;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:var(--shadow);transform:translateY(8px)}.toast.show{opacity:1;transform:translateY(0)}
+.mode-pills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.mode-pills label{border:1px solid var(--line);padding:7px 12px;border-radius:99px;font-size:.8rem;font-weight:600;cursor:pointer;background:var(--surface);transition:background .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease}.mode-pills label:hover{border-color:var(--accent);color:var(--accent)}.mode-pills input{margin-right:5px;accent-color:var(--accent)}
+.mode-pills label:has(input:checked){border-color:var(--accent);background:var(--soft);color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 20%,transparent)}
+.wf-blocks{display:flex;flex-wrap:wrap;gap:8px}.wf-blocks span,.wf-blocks button.wf-chip{background:var(--soft2);border:1px solid var(--line);padding:6px 10px;border-radius:8px;font-size:.75rem;font-weight:600;transition:background .15s ease,border-color .15s ease,color .15s ease,transform .12s ease;cursor:pointer;color:var(--ink)}.wf-blocks span:hover,.wf-blocks button.wf-chip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+pre#learnSample, #learnSample{background:var(--code-bg)!important;color:var(--ink)}
+.form-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.form-grid label{display:flex;flex-direction:column;gap:6px;font-size:.8rem;font-weight:600;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:3px 8px;border-radius:999px}
+.pill.ok{background:var(--chip-ok-bg);color:var(--ok)}.pill.warn{background:var(--chip-warn-bg);color:var(--warn)}.pill.err{background:var(--chip-err-bg);color:var(--err)}.pill.muted{background:var(--surface-3);color:var(--muted)}.pill.blue{background:var(--soft2);color:var(--accent2)}
+.chart-card{padding:4px 0 2px}
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:150px;padding:8px 4px 0;border-bottom:1px solid var(--line)}
+.chart-bars .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;min-width:0}
+.chart-bars .bar{width:100%;max-width:40px;border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,var(--chart-a),var(--chart-b));transition:filter .15s ease,transform .15s ease;min-height:4px;box-shadow:0 4px 12px color-mix(in srgb,var(--chart-b) 25%,transparent)}
+.chart-bars .bar-wrap:hover .bar{filter:brightness(1.1);transform:scaleY(1.03);transform-origin:bottom}
+.chart-bars .bar-label{font-size:.68rem;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.chart-bars .bar-val{font-size:.65rem;font-weight:700;color:var(--ink);font-family:var(--mono)}
+.spark-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sparkline{display:flex;align-items:flex-end;gap:3px;height:36px}
+.sparkline i{display:block;width:6px;border-radius:2px;background:var(--chart-a);opacity:.85;transition:height .2s ease}
+.list-feed{display:flex;flex-direction:column;gap:0}
+.list-feed .feed-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;padding:11px 4px;border-bottom:1px solid var(--line);font-size:.85rem}
+.list-feed .feed-item:last-child{border-bottom:0}
+.list-feed .feed-time{font-family:var(--mono);font-size:.72rem;color:var(--muted);white-space:nowrap;padding-top:2px}
+.list-feed .feed-title{font-weight:600}.list-feed .feed-meta{font-size:.78rem;color:var(--muted);margin-top:2px}
+.list-feed .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:6px;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.empty-state{text-align:center;padding:32px 16px;color:var(--muted)}
+.empty-state strong{display:block;color:var(--ink);font-size:.95rem;margin-bottom:6px}
+.empty-state p{margin:0 0 12px;font-size:.85rem}
+.rec-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.rec-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface-2);transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}
+.rec-card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));box-shadow:var(--shadow-soft);transform:translateY(-2px)}
+.rec-thumb{height:110px;background:linear-gradient(135deg,var(--soft),var(--soft2));display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;position:relative}
+.rec-thumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(19,32,40,.82);color:#fff;font-size:.68rem;padding:3px 7px;border-radius:5px;font-family:var(--mono)}
+.rec-body{padding:12px 14px}
+.rec-body strong{display:block;font-size:.88rem;margin-bottom:4px;letter-spacing:-.01em}
+.rec-body span{font-size:.75rem;color:var(--muted)}
+.code-block{font-family:var(--mono);font-size:.75rem;background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;line-height:1.55;color:var(--ink);margin:0}
+.api-endpoint{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.82rem;flex-wrap:wrap}
+.api-endpoint:last-child{border-bottom:0}
+.method{font-family:var(--mono);font-size:.68rem;font-weight:700;padding:3px 7px;border-radius:5px;background:var(--soft);color:var(--accent)}
+.method.post{background:var(--soft2);color:var(--accent2)}.method.ws{background:var(--chip-warn-bg);color:var(--warn)}
+.subtabs{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 14px;border-bottom:1px solid var(--line);padding-bottom:0}
+.subtab{border:1px solid transparent;border-bottom:0;background:transparent;color:var(--muted);padding:9px 13px;border-radius:8px 8px 0 0;font-size:.82rem;font-weight:600;margin-bottom:-1px;cursor:pointer;transition:color .15s,background .15s}
+.subtab:hover{color:var(--ink);background:var(--surface-2)}
+.subtab.active{color:var(--accent);background:var(--surface);border-color:var(--line);border-bottom-color:var(--surface)}
+.subpanel{display:none}.subpanel.active{display:block}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:.75rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.stat-inline{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.85rem}
+.stat-inline:last-child{border-bottom:0}
+.stat-inline span{color:var(--muted)}
+.app-footer{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(8px);font-size:.78rem;color:var(--muted);position:sticky;bottom:0;z-index:10}
+.plan-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface-2);margin-bottom:10px;transition:border-color .15s,box-shadow .15s}
+.plan-card:hover{border-color:color-mix(in srgb,var(--accent) 30%,var(--line));box-shadow:var(--shadow-soft)}
+.plan-card header{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.plan-card h4{margin:0;font-size:.92rem}
+.site-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface);display:flex;flex-direction:column;gap:8px;transition:transform .15s,box-shadow .15s,border-color .15s}
+.site-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}
+.profile-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface-2)}
+.profile-card h4{margin:0 0 6px;font-size:.95rem}
+.work-grid{display:grid;gap:14px;grid-template-columns:1fr}
+.table-wrap{overflow:auto;border-radius:10px;border:1px solid var(--line)}
+.table-wrap table{margin:0}
+.table-wrap th:first-child,.table-wrap td:first-child{padding-left:14px}
+.hero-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:12px;background:linear-gradient(120deg,color-mix(in srgb,var(--soft) 80%,var(--surface)),color-mix(in srgb,var(--soft2) 70%,var(--surface)));border:1px solid var(--line);margin-bottom:14px}
+.hero-strip p{margin:0;font-size:.88rem;color:var(--muted);max-width:52ch}
+.divider{height:1px;background:var(--line);margin:14px 0;border:0}
+@media(max-width:800px){
+  .app{grid-template-columns:1fr}
+  .side{position:relative;height:auto;flex-direction:row;flex-wrap:wrap;padding:12px;border-right:0;border-bottom:1px solid var(--side-line)}
+  .brand{width:100%}
+  .nav-btn{width:auto;padding:8px 11px;font-size:.8rem}
+  .nav-btn.active{box-shadow:none}
+  .side-meta{width:100%;margin-top:8px;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .theme-toggle{width:100%;min-width:120px}
+  .build-tip{left:auto;right:0}
+  .build-tip::after{left:auto;right:14px}
+  .main{padding:14px 14px 40px}
+  .app-footer{position:relative}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .view{animation:none}
+}
+</style>
 </head>
 <body>
 <div class="app" id="app">
 <aside class="side" aria-label="Site Surfer navigation">
   <div class="brand">
+    <div class="hub">Automation hub</div>
     <h1>Site Surfer</h1>
     <p>Independent browser automation module</p>
   </div>
-  <button type="button" class="nav-btn active" data-view="dashboard" aria-current="page">Dashboard</button>
-  <button type="button" class="nav-btn" data-view="live">Live Browser</button>
-  <button type="button" class="nav-btn" data-view="tasks">Tasks &amp; Plans</button>
-  <button type="button" class="nav-btn" data-view="workflows">Workflows</button>
-  <button type="button" class="nav-btn" data-view="sites">Site Registry</button>
-  <button type="button" class="nav-btn" data-view="profiles">Browser Profiles</button>
-  <button type="button" class="nav-btn" data-view="analytics">Analytics</button>
-  <button type="button" class="nav-btn" data-view="recordings">Recordings</button>
-  <button type="button" class="nav-btn" data-view="logs">Action Logs</button>
-  <button type="button" class="nav-btn" data-view="settings">Admin Settings</button>
-  <button type="button" class="nav-btn" data-view="jarvis">JARVIS API</button>
+  <nav class="nav" aria-label="Primary">
+    <button type="button" class="nav-btn active" data-view="dashboard" aria-current="page">Dashboard</button>
+    <button type="button" class="nav-btn" data-view="live">Live Browser</button>
+    <button type="button" class="nav-btn" data-view="tasks">Tasks &amp; Plans</button>
+    <button type="button" class="nav-btn" data-view="workflows">Workflows</button>
+    <button type="button" class="nav-btn" data-view="sites">Site Registry</button>
+    <button type="button" class="nav-btn" data-view="profiles">Browser Profiles</button>
+    <button type="button" class="nav-btn" data-view="analytics">Analytics</button>
+    <button type="button" class="nav-btn" data-view="recordings">Recordings</button>
+    <button type="button" class="nav-btn" data-view="logs">Action Logs</button>
+    <button type="button" class="nav-btn" data-view="settings">Admin Settings</button>
+    <button type="button" class="nav-btn" data-view="jarvis">JARVIS API</button>
+  </nav>
   <div class="side-meta">
     <div class="build-wrap">
       <button type="button" class="build-badge" id="buildBadge" aria-describedby="buildTooltip" aria-label="Build 2.4.1">
@@ -47,282 +503,459 @@
   </div>
 </aside>
 <main class="main">
-  <div class="topbar">
-    <div>
+  <
+<header class="topbar">
+    <div class="topbar-copy">
+      <p class="eyebrow">Automation hub</p>
       <h2 id="viewTitle">Dashboard</h2>
-      <div class="chips" style="margin-top:6px">
-        <span class="chip ok" id="sessionChip">Session idle</span>
-        <span class="chip blue">Module: Site Surfer</span>
-        <span class="chip">Not JARVIS Brain</span>
-        <span class="chip warn" id="modeChip">Approval Required</span>
-      </div>
+      <p id="viewSubtitle">Overview of live sessions, queued plans, and recent site activity.</p>
     </div>
-    <div class="btn-row" style="margin:0">
-      <button type="button" class="btn" id="btnQuickTask">New NL task</button>
-      <button type="button" class="btn primary" id="btnGoLive">Open live workspace</button>
+    <div class="topbar-actions">
+      <label class="search" for="globalSearch">
+        <span class="sr-only">Search</span>
+        <input id="globalSearch" type="search" placeholder="Search tasks, sites, logs…" autocomplete="off">
+      </label>
+      <button type="button" class="btn primary" id="quickRun">Run plan</button>
     </div>
-  </div>
+  </header>
 
-  <div class="ads-slot panel" id="adsensePlaceholder" aria-label="Advertisement placeholder">
-    <strong>Google AdSense placeholder</strong>
-    <span>ca-pub-XXXXXXXXXXXXXXXX · slot reserved — replace with approved ad unit in production deploy</span>
-    <span>Layout-safe region; does not overlay browser workspace controls</span>
-  </div>
-
-  <!-- DASHBOARD -->
-  <section class="view active" id="view-dashboard" data-title="Dashboard">
-    <div class="grid3" style="margin-bottom:12px">
-      <div class="metric"><b id="mSessions">128</b><span>Total sessions</span></div>
-      <div class="metric"><b id="mSuccess">91%</b><span>Success rate</span></div>
-      <div class="metric"><b id="mRunning">1</b><span>Running now</span></div>
-      <div class="metric"><b id="mActions">4,812</b><span>Actions logged</span></div>
-      <div class="metric"><b>36</b><span>Screenshots</span></div>
-      <div class="metric"><b>7</b><span>Registered sites</span></div>
+  <section class="view active" id="view-dashboard" data-view-panel="dashboard" aria-labelledby="viewTitle">
+    <div class="stats">
+      <article class="stat-card">
+        <p class="stat-label">Active sessions</p>
+        <p class="stat-value" id="statSessions">3</p>
+        <p class="stat-meta">2 headed · 1 headless</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Tasks in queue</p>
+        <p class="stat-value" id="statQueue">12</p>
+        <p class="stat-meta">4 high priority</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Sites registered</p>
+        <p class="stat-value" id="statSites">48</p>
+        <p class="stat-meta">6 need profile refresh</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Success rate (24h)</p>
+        <p class="stat-value" id="statSuccess">97.4%</p>
+        <p class="stat-meta">1,284 actions</p>
+      </article>
     </div>
-    <div class="grid2">
-      <div class="panel">
-        <h3>Live session snapshot</h3>
-        <p style="margin:0 0 8px;color:var(--muted);font-size:.9rem">Visible browser automation for authorized testing, QA, and workflows. JARVIS can control this module later via secure APIs and events.</p>
-        <div class="status-grid" id="dashStatus"></div>
-        <div class="btn-row">
-          <button type="button" class="btn primary" data-goto="live">Resume workspace</button>
-          <button type="button" class="btn" data-goto="tasks">Review plan gate</button>
+
+    <div class="grid-2">
+      <article class="panel">
+        <div class="panel-head">
+          <h3>Live sessions</h3>
+          <button type="button" class="btn ghost" data-goto="live">Open live</button>
         </div>
-      </div>
-      <div class="panel">
-        <h3>Safety gates</h3>
-        <ul style="margin:0;padding-left:1.1rem;font-size:.9rem;color:var(--muted)">
-          <li>Never bypass CAPTCHA, anti-bot, MFA, auth, or rate limits</li>
-          <li>Sensitive actions require approval (submit, deploy, delete, publish)</li>
-          <li>Credentials encrypted; never shown in logs or screenshots</li>
-          <li>Deterministic Playwright-style engine works without paid AI APIs</li>
+        <ul class="list" id="liveSessionList">
+          <li>
+            <div>
+              <strong>checkout-flow-west</strong>
+              <span class="muted">profile: retail-us-04</span>
+            </div>
+            <span class="pill ok">running</span>
+          </li>
+          <li>
+            <div>
+              <strong>docs-login-probe</strong>
+              <span class="muted">profile: corp-sso</span>
+            </div>
+            <span class="pill ok">running</span>
+          </li>
+          <li>
+            <div>
+              <strong>inventory-sync</strong>
+              <span class="muted">headless · batch</span>
+            </div>
+            <span class="pill warn">queued</span>
+          </li>
         </ul>
-      </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h3>Recent action log</h3>
+          <button type="button" class="btn ghost" data-goto="logs">All logs</button>
+        </div>
+        <ul class="list compact" id="recentLogs">
+          <li><span class="time">14:32:18</span><span>NAV https://example.com/app</span></li>
+          <li><span class="time">14:32:19</span><span>CLICK #sign-in</span></li>
+          <li><span class="time">14:32:21</span><span>FILL input[name=email]</span></li>
+          <li><span class="time">14:32:24</span><span>WAIT network idle</span></li>
+          <li><span class="time">14:32:27</span><span>ASSERT .dashboard visible</span></li>
+        </ul>
+      </article>
     </div>
-    <div class="panel">
-      <h3>Admin site statistics</h3>
-      <div style="overflow:auto">
-        <table id="siteStatsTable">
-          <thead><tr><th>Site</th><th>URL</th><th>Sessions</th><th>Success</th><th>Failed</th><th>Total time</th><th>Avg duration</th><th>Errors</th><th>Status</th></tr></thead>
-          <tbody></tbody>
+
+    <article class="panel">
+      <div class="panel-head">
+        <h3>Scheduled workflows</h3>
+        <button type="button" class="btn ghost" data-goto="workflows">Manage</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Workflow</th>
+              <th>Next run</th>
+              <th>Site</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Morning health checks</td>
+              <td>2026-03-29 06:00 UTC</td>
+              <td>status.internal</td>
+              <td><span class="pill ok">enabled</span></td>
+            </tr>
+            <tr>
+              <td>Catalog price snapshot</td>
+              <td>2026-03-28 18:00 UTC</td>
+              <td>shop.example</td>
+              <td><span class="pill ok">enabled</span></td>
+            </tr>
+            <tr>
+              <td>SSO session renew</td>
+              <td>2026-03-28 16:15 UTC</td>
+              <td>id.corp</td>
+              <td><span class="pill warn">paused</span></td>
+            </tr>
+          </tbody>
         </table>
       </div>
-      <div class="btn-row">
-        <button type="button" class="btn" id="btnExportCsv">Export CSV</button>
-        <button type="button" class="btn" id="btnFilterSites">Filter active</button>
-      </div>
-    </div>
+    </article>
   </section>
 
-  <!-- LIVE BROWSER -->
-  <section class="view" id="view-live" data-title="Live Browser">
-    <div class="grid2 work-grid">
-      <div>
-        <div class="browser" id="browserWin">
-          <div class="b-chrome">
-            <div class="b-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <button type="button" class="btn" data-win="min" title="Minimize">Min</button>
-            <button type="button" class="btn" data-win="max" title="Maximize">Max</button>
-            <button type="button" class="btn" data-win="restore" title="Restore">Restore</button>
-            <button type="button" class="btn" data-win="fs" title="Fullscreen">Full</button>
-            <div class="url-bar" id="urlBar" role="status">https://lusona.org/</div>
-          </div>
-          <div class="tabs" id="tabBar" role="tablist"></div>
-          <div class="b-chrome" style="border-top:1px solid var(--browser-line)">
-            <button type="button" class="btn" id="actPause">Pause</button>
-            <button type="button" class="btn" id="actResume">Resume</button>
-            <button type="button" class="btn danger" id="actStop">Stop</button>
-            <button type="button" class="btn" id="actRestart">Restart</button>
-            <button type="button" class="btn primary" id="actShot">Screenshot</button>
-            <button type="button" class="btn" id="actNewTab">New tab</button>
-            <button type="button" class="btn" id="actCloseTab">Close tab</button>
-          </div>
-          <div class="b-body" id="browserBody">
-            <div class="sim-page" id="simPage">
-              <h4 id="pageTitle">LUSONA — Homepage</h4>
-              <p id="pageBody">Authorized browser workspace preview. Site Surfer adapts to layout via semantic targets (roles, labels, text), not fixed coordinates alone.</p>
-              <div class="btn-row">
-                <button type="button" class="btn primary" id="simAbout">About</button>
-                <button type="button" class="btn" id="simContact">Contact</button>
-                <button type="button" class="btn" id="simDocs">Documentation</button>
-              </div>
-              <p style="font-size:.8rem;margin-top:12px" id="pageMeta">Sections: Hero · Platform · Modules · Trust · Contact</p>
-            </div>
-            <div class="cursor-sim" id="cursorSim" style="left:40%;top:45%"></div>
-          </div>
-        </div>
-        <div class="panel" style="margin-top:12px">
-          <h3>Live action log</h3>
-          <div class="log" id="actionLog" aria-live="polite"></div>
+  <section class="view" id="view-live" data-view-panel="live" hidden>
+    <article class="panel fill">
+      <div class="panel-head">
+        <h3>Live browser</h3>
+        <div class="inline-actions">
+          <button type="button" class="btn">New session</button>
+          <button type="button" class="btn ghost">Take screenshot</button>
         </div>
       </div>
-      <div>
-        <div class="panel">
-          <h3>Status panel</h3>
-          <div class="status-grid">
-            <div><label>Current URL</label><span id="stUrl">https://lusona.org/</span></div>
-            <div><label>Site</label><span id="stSite">lusona.org</span></div>
-            <div><label>Page</label><span id="stPage">Homepage</span></div>
-            <div><label>Task</label><span id="stTask">—</span></div>
-            <div><label>Current action</label><span id="stAction">Idle</span></div>
-            <div><label>Next action</label><span id="stNext">—</span></div>
-            <div><label>Elapsed</label><span id="stElapsed">00:00:00</span></div>
-            <div><label>Session status</label><span id="stStatus">Idle</span></div>
-          </div>
-          <label style="display:block;margin-top:10px;font-size:.75rem;font-weight:700;color:var(--muted)">TASK PROGRESS</label>
-          <div class="progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progWrap"><i id="progBar"></i></div>
-          <p style="margin:6px 0 0;font-size:.85rem" id="progLabel">0%</p>
+      <div class="browser-stage" role="region" aria-label="Session viewport placeholder">
+        <div class="browser-chrome">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">https://session.local/viewport</span>
         </div>
-        <div class="panel">
-          <h3>Interaction timing</h3>
-          <div class="grid3">
-            <label style="font-size:.8rem">Min delay (s)<input type="number" id="delayMin" value="2" min="0" step="0.5"></label>
-            <label style="font-size:.8rem">Max delay (s)<input type="number" id="delayMax" value="5" min="0" step="0.5"></label>
-            <label style="font-size:.8rem">Typing (ms/char)<input type="number" id="delayType" value="80" min="20"></label>
-            <label style="font-size:.8rem">Scroll pause (s)<input type="number" id="delayScroll" value="2" min="0" step="0.5"></label>
-            <label style="font-size:.8rem">Nav wait (s)<input type="number" id="delayNav" value="3" min="0" step="0.5"></label>
-            <label style="font-size:.8rem">Page-load wait<input type="number" id="delayLoad" value="4" min="0" step="0.5"></label>
-          </div>
-          <p style="font-size:.78rem;color:var(--muted);margin:8px 0 0">Human-like delays for legitimate testing only. Security controls are never bypassed.</p>
-        </div>
-        <div class="panel">
-          <h3>Manual inspect / fill</h3>
-          <input type="text" id="inspectSel" placeholder="Target: role, label, or CSS-like selector">
-          <div class="btn-row">
-            <button type="button" class="btn" id="btnInspect">Inspect</button>
-            <button type="button" class="btn" id="btnClick">Click</button>
-            <button type="button" class="btn" id="btnHover">Hover</button>
-          </div>
-          <input type="text" id="typeVal" placeholder="Text to type into focused field" style="margin-top:6px">
-          <div class="btn-row">
-            <button type="button" class="btn" id="btnType">Type</button>
-            <button type="button" class="btn" id="btnExtract">Extract text</button>
-            <button type="button" class="btn" id="btnVerify">Verify visible</button>
-          </div>
+        <div class="browser-body">
+          <p>Connect a runner to stream the headed session here.</p>
+          <p class="muted">No active viewport attached in this demo shell.</p>
         </div>
       </div>
-    </div>
+    </article>
   </section>
 
-  <!-- TASKS -->
-  <section class="view" id="view-tasks" data-title="Tasks & Plans">
-    <div class="panel">
-      <h3>Natural-language task</h3>
-      <textarea id="nlTask" rows="3" placeholder="Describe the task…">Open lusona.org, review the homepage, scroll through major sections, open Contact, check for broken links, capture screenshots, and generate a report.</textarea>
-      <div class="mode-pills" role="radiogroup" aria-label="Execution mode">
-        <label><input type="radio" name="execMode" value="observe"> Observe</label>
-        <label><input type="radio" name="execMode" value="approval" checked> Approval Required</label>
-        <label><input type="radio" name="execMode" value="auto"> Autonomous (approved workflows only)</label>
+  <section class="view" id="view-tasks" data-view-panel="tasks" hidden>
+    <article class="panel">
+      <div class="panel-head">
+        <h3>Tasks &amp; plans</h3>
+        <button type="button" class="btn primary">New plan</button>
       </div>
-      <div class="btn-row">
-        <button type="button" class="btn primary" id="btnGenPlan">Generate plan</button>
-        <button type="button" class="btn" id="btnEditPlan">Edit plan</button>
-        <button type="button" class="btn" id="btnCancelPlan">Cancel</button>
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr><th>Plan</th><th>Owner</th><th>Steps</th><th>State</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Onboard demo tenant</td><td>ops</td><td>18</td><td><span class="pill ok">ready</span></td></tr>
+            <tr><td>Regression pack A</td><td>qa</td><td>42</td><td><span class="pill warn">draft</span></td></tr>
+            <tr><td>Nightly crawl</td><td>system</td><td>9</td><td><span class="pill ok">scheduled</span></td></tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-    <div class="panel plan" id="planPanel">
-      <h3>Task plan — awaiting approval</h3>
-      <ol id="planList"></ol>
-      <p style="font-size:.85rem;color:var(--muted)" id="planNote">Sensitive steps (form submit, external messages) pause for human approval. CAPTCHA and auth walls stop for handoff.</p>
-      <div class="btn-row">
-        <button type="button" class="btn primary" id="btnApprove">Approve &amp; execute</button>
-        <button type="button" class="btn" id="btnApproveEdit">Save edits</button>
-        <button type="button" class="btn danger" id="btnReject">Reject</button>
+    </article>
+  </section>
+
+  <section class="view" id="view-workflows" data-view-panel="workflows" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Workflows</h3><button type="button" class="btn primary">Create workflow</button></div>
+      <p class="muted">Chain plans, retries, and notifications. Hook runners via the automation hub API.</p>
+      <ul class="list">
+        <li><div><strong>health-rotator</strong><span class="muted">every 15m</span></div><span class="pill ok">active</span></li>
+        <li><div><strong>renew-sessions</strong><span class="muted">hourly</span></div><span class="pill ok">active</span></li>
+        <li><div><strong>archive-recordings</strong><span class="muted">daily 02:00</span></div><span class="pill warn">paused</span></li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="view" id="view-sites" data-view-panel="sites" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Site registry</h3><button type="button" class="btn primary">Add site</button></div>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Site</th><th>Base URL</th><th>Profile</th><th>Tags</th></tr></thead>
+          <tbody>
+            <tr><td>Example App</td><td>https://example.com</td><td>default</td><td>prod</td></tr>
+            <tr><td>Docs Portal</td><td>https://docs.example.com</td><td>corp-sso</td><td>internal</td></tr>
+            <tr><td>Status</td><td>https://status.internal</td><td>monitor</td><td>ops</td></tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-    <div class="panel">
-      <h3>Final report preview</h3>
-      <div id="reportBox" style="font-size:.9rem;color:var(--muted)">No completed run yet. Approve a plan to produce a structured report for JARVIS learning events.</div>
-    </div>
+    </article>
   </section>
 
-  <!-- WORKFLOWS -->
-  <section class="view" id="view-workflows" data-title="Workflows">
-    <div class="panel">
-      <h3>Reusable site workflows</h3>
-      <div style="overflow:auto"><table id="wfTable"><thead><tr><th>Workflow</th><th>Site</th><th>Steps</th><th>Mode</th><th></th></tr></thead><tbody></tbody></table></div>
-    </div>
-    <div class="panel">
-      <h3>Workflow builder (block palette)</h3>
-      <p style="font-size:.85rem;color:var(--muted);margin:0 0 8px">Drag-and-drop metaphor for non-technical admins — click to append steps.</p>
-      <div class="wf-blocks" id="wfPalette"></div>
-      <ol id="wfDraft" style="margin-top:12px"></ol>
-      <div class="btn-row">
-        <button type="button" class="btn primary" id="btnSaveWf">Save workflow</button>
-        <button type="button" class="btn" id="btnClearWf">Clear draft</button>
+  <section class="view" id="view-profiles" data-view-panel="profiles" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Browser profiles</h3><button type="button" class="btn primary">New profile</button></div>
+      <ul class="list">
+        <li><div><strong>retail-us-04</strong><span class="muted">Chrome · persistent</span></div><span class="pill ok">healthy</span></li>
+        <li><div><strong>corp-sso</strong><span class="muted">Chrome · isolated</span></div><span class="pill ok">healthy</span></li>
+        <li><div><strong>monitor</strong><span class="muted">Firefox · headless</span></div><span class="pill warn">stale cookies</span></li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="view" id="view-analytics" data-view-panel="analytics" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Analytics</h3></div>
+      <div class="stats">
+        <article class="stat-card"><p class="stat-label">Actions / hour</p><p class="stat-value">86</p></article>
+        <article class="stat-card"><p class="stat-label">Avg step time</p><p class="stat-value">1.4s</p></article>
+        <article class="stat-card"><p class="stat-label">Failures (7d)</p><p class="stat-value">23</p></article>
       </div>
-    </div>
+      <p class="muted">Connect a metrics backend to populate charts in this panel.</p>
+    </article>
   </section>
 
-  <!-- SITES -->
-  <section class="view" id="view-sites" data-title="Site Registry">
-    <div class="panel">
-      <h3>Site registry</h3>
-      <div style="overflow:auto"><table id="siteRegTable"><thead><tr><th>ID</th><th>Name</th><th>URL</th><th>Domains</th><th>Profile</th><th>Recording</th><th>Status</th></tr></thead><tbody></tbody></table></div>
-    </div>
+  <section class="view" id="view-recordings" data-view-panel="recordings" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Recordings</h3><button type="button" class="btn ghost">Upload</button></div>
+      <ul class="list">
+        <li><div><strong>checkout-flow-west.webm</strong><span class="muted">12 MB · today</span></div><button type="button" class="btn ghost">Play</button></li>
+        <li><div><strong>docs-login-probe.webm</strong><span class="muted">4 MB · today</span></div><button type="button" class="btn ghost">Play</button></li>
+      </ul>
+    </article>
   </section>
 
-  <!-- PROFILES -->
-  <section class="view" id="view-profiles" data-title="Browser Profiles">
-    <div class="panel">
-      <h3>Browser profiles</h3>
-      <div style="overflow:auto"><table id="profTable"><thead><tr><th>Name</th><th>Browser</th><th>Language</th><th>Timezone</th><th>Viewport</th><th>Device</th></tr></thead><tbody></tbody></table></div>
-      <p style="font-size:.8rem;color:var(--muted)">Proxy/IP only for authorized use — not for evading security controls. Cookies and storage scoped per profile.</p>
-    </div>
+  <section class="view" id="view-logs" data-view-panel="logs" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Action logs</h3><button type="button" class="btn ghost">Export</button></div>
+      <pre class="log-view" id="logView" aria-label="Action log output">[14:32:18] INFO  session=checkout-flow-west NAV https://example.com/app
+[14:32:19] INFO  session=checkout-flow-west CLICK #sign-in
+[14:32:21] INFO  session=checkout-flow-west FILL input[name=email]
+[14:32:24] INFO  session=checkout-flow-west WAIT network idle
+[14:32:27] INFO  session=checkout-flow-west ASSERT .dashboard visible
+[14:33:01] INFO  session=docs-login-probe   NAV https://docs.example.com
+[14:33:04] WARN  session=inventory-sync     queue delay 2.1s
+</pre>
+    </article>
   </section>
 
-  <!-- ANALYTICS -->
-  <section class="view" id="view-analytics" data-title="Analytics">
-    <div class="grid3" style="margin-bottom:12px">
-      <div class="metric"><b>42.6h</b><span>Total time</span></div>
-      <div class="metric"><b>19m</b><span>Avg session</span></div>
-      <div class="metric"><b>37</b><span>Avg actions / session</span></div>
-      <div class="metric"><b>12</b><span>Errors (30d)</span></div>
-    </div>
-    <div class="panel">
-      <h3>Page-level analytics (sample: lusona.org)</h3>
-      <table><thead><tr><th>Page</th><th>Time</th><th>Clicks</th><th>Scrolls</th><th>Errors</th><th>Shots</th></tr></thead>
-      <tbody>
-        <tr><td>/home</td><td>8.2h</td><td>1,204</td><td>886</td><td>2</td><td>64</td></tr>
-        <tr><td>/events</td><td>6.1h</td><td>980</td><td>712</td><td>1</td><td>51</td></tr>
-        <tr><td>/learn</td><td>5.4h</td><td>742</td><td>530</td><td>3</td><td>47</td></tr>
-        <tr><td>/checkout</td><td>3.9h</td><td>410</td><td>298</td><td>4</td><td>33</td></tr>
-        <tr><td>/account</td><td>2.7h</td><td>356</td><td>241</td><td>2</td><td>28</td></tr>
-      </tbody></table>
-    </div>
+  <section class="view" id="view-settings" data-view-panel="settings" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>Admin settings</h3></div>
+      <form class="settings-form" id="settingsForm">
+        <label>Default timeout (ms)<input type="number" name="timeout" value="30000" min="1000" step="500"></label>
+        <label>Max concurrent sessions<input type="number" name="concurrency" value="5" min="1" max="50"></label>
+        <label>Runner endpoint<input type="url" name="runner" value="http://127.0.0.1:7920" placeholder="http://127.0.0.1:7920"></label>
+        <label class="check"><input type="checkbox" name="telemetry" checked> Anonymous usage telemetry</label>
+        <button type="submit" class="btn primary">Save settings</button>
+      </form>
+    </article>
   </section>
 
-  <!-- SETTINGS -->
-  <section class="view" id="view-settings" data-title="Settings">
-    <div class="panel">
-      <h3>Workspace settings</h3>
-      <div class="form-grid">
-        <label>Workspace name<input type="text" id="setWsName" value="JARVIS Learning Ops" /></label>
-        <label>Default profile
-          <select id="setDefaultProfile">
-            <option>desktop-chrome-en</option>
-            <option>desktop-firefox-en</option>
-            <option>mobile-safari-en</option>
-          </select>
-        </label>
-        <label>Retention (days)<input type="number" id="setRetention" value="30" min="1" max="365" /></label>
-        <label>Screenshot quality
-          <select id="setShotQuality">
-            <option>high</option>
-            <option selected>medium</option>
-            <option>low</option>
-          </select>
-        </label>
+  <section class="view" id="view-jarvis" data-view-panel="jarvis" hidden>
+    <article class="panel">
+      <div class="panel-head"><h3>JARVIS API</h3></div>
+      <p>Expose Site Surfer plans to the hub assistant with read-only status and approved run triggers.</p>
+      <div class="code-block">
+        <code>GET /api/v1/status</code>
+        <code>POST /api/v1/plans/{id}/run</code>
+        <code>GET /api/v1/sessions</code>
       </div>
-      <div class="btn-row" style="margin-top:12px">
-        <button type="button" class="btn primary" id="btnSaveSettings">Save settings</button>
-      </div>
-      <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Changes apply to new runs only. Existing recordings are not rewritten.</p>
-    </div>
+      <button type="button" class="btn">Copy openapi snippet</button>
+    </article>
   </section>
-
 </main>
+
+<footer class="app-footer">
+  <span>Site Surfer · independent browser automation module</span>
+  <span class="muted" id="footerClock"></span>
+</footer>
 </div>
 
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .topbar{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;opacity:.7;margin:0 0 4px}
+  .topbar h2{margin:0;font-size:1.6rem}
+  .topbar-copy p:last-child{margin:6px 0 0;opacity:.8}
+  .topbar-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .search input{border:1px solid var(--border, #c9d2e3);background:var(--panel, #fff);color:inherit;border-radius:10px;padding:10px 12px;min-width:min(100%,240px)}
+  .btn{border:1px solid var(--border, #c9d2e3);background:var(--panel, #fff);color:inherit;border-radius:10px;padding:10px 14px;cursor:pointer;font:inherit}
+  .btn.primary{background:var(--accent, #2f6fed);border-color:transparent;color:#fff}
+  .btn.ghost{background:transparent}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+  .stat-card,.panel{background:var(--panel, #fff);border:1px solid var(--border, #c9d2e3);border-radius:16px;padding:16px;box-shadow:0 8px 24px rgba(20,40,80,.04)}
+  .stat-label{margin:0;opacity:.7;font-size:.85rem}
+  .stat-value{margin:6px 0;font-size:1.8rem;font-weight:700}
+  .stat-meta{margin:0;opacity:.65;font-size:.82rem}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:16px}
+  .panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .panel-head h3{margin:0;font-size:1.05rem}
+  .list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .list li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--mute, rgba(127,140,170,.08))}
+  .list.compact li{justify-content:flex-start}
+  .list .muted,.muted{opacity:.7}
+  .list strong{display:block}
+  .time{font-family:ui-monospace,monospace;opacity:.65;margin-right:10px}
+  .pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 10px;font-size:.75rem;font-weight:600}
+  .pill.ok{background:rgba(30,170,90,.15);color:#0f7a3a}
+  .pill.warn{background:rgba(220,150,20,.18);color:#8a5a00}
+  .table-wrap{overflow:auto}
+  .data{width:100%;border-collapse:collapse}
+  .data th,.data td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border, #c9d2e3);white-space:nowrap}
+  .view{animation:fade .2s ease}
+  .view[hidden]{display:none!important}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .browser-stage{border:1px solid var(--border, #c9d2e3);border-radius:14px;overflow:hidden;min-height:320px;background:var(--mute, #f4f7fb)}
+  .browser-chrome{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(127,140,170,.12)}
+  .browser-chrome .dot{width:10px;height:10px;border-radius:50%;background:#bbb}
+  .browser-chrome .url{margin-left:8px;opacity:.75;font-family:ui-monospace,monospace;font-size:.85rem}
+  .browser-body{padding:28px;min-height:280px}
+  .log-view{margin:0;padding:14px;border-radius:12px;background:#0d1118;color:#d7e0f0;overflow:auto;max-height:360px;font-size:.85rem;line-height:1.45}
+  .settings-form{display:grid;gap:12px;max-width:480px}
+  .settings-form label{display:grid;gap:6px}
+  .settings-form input[type=number],.settings-form input[type=url]{padding:10px 12px;border-radius:10px;border:1px solid var(--border, #c9d2e3);background:var(--panel,#fff);color:inherit;font:inherit}
+  .settings-form .check{display:flex;align-items:center;gap:8px}
+  .code-block{display:grid;gap:8px;margin:14px 0;padding:14px;border-radius:12px;background:var(--mute, rgba(127,140,170,.08));font-family:ui-monospace,monospace}
+  .app-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 4px 0;margin-top:18px;opacity:.75;font-size:.85rem}
+  .inline-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .panel.fill{min-height:60vh}
+  :root, [data-theme="light"]{
+    --panel:#ffffff; --border:#d5deee; --accent:#2f6fed; --mute:#f3f6fb; --text:#172033;
+  }
+  [data-theme="dark"]{
+    --panel:#171c27; --border:#2c3548; --accent:#6b9fff; --mute:#121722; --text:#e7eefc;
+  }
+  [data-theme="ocean"]{
+    --panel:#ecf7fb; --border:#b9dbe6; --accent:#0e7c9b; --mute:#e5f3f8; --text:#073b4c;
+  }
+  [data-theme="slate"]{
+    --panel:#eef1f5; --border:#c2c8d3; --accent:#45566e; --mute:#e4e8ee; --text:#1d2633;
+  }
+  [data-theme="sand"]{
+    --panel:#fbf6ee; --border:#e4d3b5; --accent:#b07d2c; --mute:#f5ecde; --text:#3f2f1a;
+  }
+  body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text,#172033);background:var(--mute,#f3f6fb)}
+  .app{min-height:100vh}
+</style>
+
+<script>
+(function () {
+  var app = document.getElementById('app');
+  var title = document.getElementById('viewTitle');
+  var subtitle = document.getElementById('viewSubtitle');
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.nav-btn'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('[data-view-panel]'));
+  var copy = {
+    dashboard: ['Dashboard', 'Overview of live sessions, queued plans, and recent site activity.'],
+    live: ['Live Browser', 'Attach runners and watch headed sessions in real time.'],
+    tasks: ['Tasks & Plans', 'Author, queue, and inspect multi-step automation plans.'],
+    workflows: ['Workflows', 'Schedule and chain plans across registered sites.'],
+    sites: ['Site Registry', 'Canonical site entries, base URLs, and default profiles.'],
+    profiles: ['Browser Profiles', 'Persistent and ephemeral browser identities for runners.'],
+    analytics: ['Analytics', 'Throughput, reliability, and timing signals.'],
+    recordings: ['Recordings', 'Session captures for debugging and review.'],
+    logs: ['Action Logs', 'Immutable step stream from connected runners.'],
+    settings: ['Admin Settings', 'Runner defaults, concurrency, and hub integration.'],
+    jarvis: ['JARVIS API', 'Assistant-facing endpoints for status and approved runs.']
+  };
+
+  function showView(name) {
+    if (!copy[name]) name = 'dashboard';
+    buttons.forEach(function (btn) {
+      var on = btn.getAttribute('data-view') === name;
+      btn.classList.toggle('active', on);
+      if (on) btn.setAttribute('aria-current', 'page');
+      else btn.removeAttribute('aria-current');
+    });
+    panels.forEach(function (panel) {
+      var on = panel.getAttribute('data-view-panel') === name;
+      panel.classList.toggle('active', on);
+      if (on) panel.removeAttribute('hidden');
+      else panel.setAttribute('hidden', '');
+    });
+    title.textContent = copy[name][0];
+    subtitle.textContent = copy[name][1];
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showView(btn.getAttribute('data-view'));
+    });
+  });
+
+  document.querySelectorAll('[data-goto]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      showView(el.getAttribute('data-goto'));
+    });
+  });
+
+  var themeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-theme-set]'));
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('site-surfer-theme', theme); } catch (e) {}
+    themeButtons.forEach(function (btn) {
+      var on = btn.getAttribute('data-theme-set') === theme;
+      btn.classList.toggle('active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  themeButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setTheme(btn.getAttribute('data-theme-set'));
+    });
+  });
+  var saved = null;
+  try { saved = localStorage.getItem('site-surfer-theme'); } catch (e) {}
+  setTheme(saved || 'light');
+
+  var buildBadge = document.getElementById('buildBadge');
+  var buildTip = document.getElementById('buildTooltip');
+  if (buildBadge && buildTip) {
+    var tipTimer;
+    function showTip(show) {
+      buildTip.style.opacity = show ? '1' : '';
+      buildTip.style.pointerEvents = show ? 'auto' : '';
+    }
+    buildBadge.addEventListener('mouseenter', function () { showTip(true); });
+    buildBadge.addEventListener('mouseleave', function () { showTip(false); });
+    buildBadge.addEventListener('focus', function () { showTip(true); });
+    buildBadge.addEventListener('blur', function () { showTip(false); });
+  }
+
+  var form = document.getElementById('settingsForm');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type=submit]');
+      if (!btn) return;
+      var old = btn.textContent;
+      btn.textContent = 'Saved';
+      setTimeout(function () { btn.textContent = old; }, 1200);
+    });
+  }
+
+  var clock = document.getElementById('footerClock');
+  function tick() {
+    if (!clock) return;
+    clock.textContent = new Date().toISOString().replace('T', ' ').replace(/\.\d+Z$/, ' UTC');
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  var quick = document.getElementById('quickRun');
+  if (quick) quick.addEventListener('click', function () { showView('tasks'); });
+
+  showView('dashboard');
+})();
+</script>
 </body>
 </html>
