@@ -1,0 +1,18 @@
+:root { --ink:#ebe4d8; --mute:#9a907f; --line:#2a261f; --bg:#12110e; --paper:#1b1914; --gold:#c4a574; }
+  * { box-sizing:border-box }
+  html,body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 "Iowan Old Style", "Palatino Linotype", Palatino, serif }
+  a { color:var(--gold); text-decoration:none }
+  header { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.25rem 6vw; border-bottom:1px solid var(--line); position:sticky; top:0; background:color-mix(in srgb, var(--bg) 92%, transparent) }
+  header strong { letter-spacing:.18em; text-transform:uppercase; font:11px/1 ui-monospace, monospace; color:var(--gold) }
+  nav { display:flex; gap:1.25rem; font-size:14px }
+  .hero { padding:14vh 6vw 12vh; min-height:72vh; background:
+    radial-gradient(1200px 480px at 80% -10%, #3a3328 0%, transparent 60%), var(--bg) }
+  .hero p.k { letter-spacing:.28em; text-transform:uppercase; font:11px/1 ui-monospace, monospace; color:var(--gold); margin:0 0 1rem }
+  h1 { font-weight:500; letter-spacing:-.04em; font-size:clamp(2.6rem, 8vw, 5.4rem); line-height:.95; margin:0; max-width:14ch }
+  .hero .lede { max-width:36rem; color:var(--mute); margin-top:1.5rem }
+  .cta { display:inline-block; margin-top:2rem; border:1px solid var(--gold); color:var(--ink); padding:.85rem 1.2rem }
+  main { padding:4rem 6vw 6rem; display:grid; gap:4rem }
+  section { border-top:1px solid var(--line); padding-top:2rem; background:var(--paper); padding:2rem 1.5rem }
+  section h2 { font-size:1.8rem; letter-spacing:-.03em; font-weight:500; margin:.3rem 0 0 }
+  section p.k { letter-spacing:.2em; text-transform:uppercase; font:11px/1 ui-monospace, monospace; color:var(--gold); margin:0 }
+  footer { padding:2rem 6vw 3rem; color:var(--mute); font-size:13px; border-top:1px solid var(--line) }
